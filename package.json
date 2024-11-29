@@ -1,6 +1,6 @@
 {
-  "name": "codize-afip",
-  "version": "0.0.0",
+  "name": "codize-arca",
+  "version": "0.0.1",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
