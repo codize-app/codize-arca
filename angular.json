@@ -6,7 +6,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "codize-afip": {
+    "codize-arca": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -23,7 +23,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/codize-afip",
+            "outputPath": "dist/codize-arca",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -79,11 +79,11 @@
           "configurations": {
             "production": {
               "proxyConfig": "src/proxy.conf.json",
-              "buildTarget": "codize-afip:build:production"
+              "buildTarget": "codize-arca:build:production"
             },
             "development": {
               "proxyConfig": "src/proxy.conf.json",
-              "buildTarget": "codize-afip:build:development"
+              "buildTarget": "codize-arca:build:development"
             }
           },
           "defaultConfiguration": "development"
