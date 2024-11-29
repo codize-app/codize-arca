@@ -7,7 +7,7 @@ import { Globals } from './app.globals';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'codize-afip';
+  title = 'codize-arca';
 
   globals = Globals;
 

@@ -26,7 +26,7 @@ export interface InvoiceElement {
 }
 
 @Component({
-  selector: 'app-afip',
+  selector: 'app-arca',
   templateUrl: './afip.component.html',
   styleUrls: ['./afip.component.scss'],
   animations: [
@@ -84,7 +84,7 @@ export class AfipComponent implements OnInit {
   scanQR() {
     this.barcodeScanner.scan({
       formats: 'QR_CODE',
-      prompt: 'Coloque un Código QR de AFIP en el Escaner.',
+      prompt: 'Coloque un Código QR de ARCA en el Escaner.',
       resultDisplayDuration: 0
     })
     .then(barcodeData => {
@@ -99,7 +99,7 @@ export class AfipComponent implements OnInit {
   scanQRContinue() {
     this.barcodeScanner.scan({
       formats: 'QR_CODE',
-      prompt: 'Coloque un Código QR de AFIP en el Escaner. Puede escanear todas las Facturas AFIP que desee. Al finalizar, oprima en el botón Volver.',
+      prompt: 'Coloque un Código QR de ARCA en el Escaner. Puede escanear todas las Facturas ARCA que desee. Al finalizar, oprima en el botón Volver.',
       resultDisplayDuration: 0
     })
     .then(barcodeData => {
@@ -279,7 +279,7 @@ export class AfipComponent implements OnInit {
         }
       } else {
         this.qrs[i] = false;
-        this.qrErrors.push('QR no es de AFIP');
+        this.qrErrors.push('¡QR no es de ARCA!');
       }
     }
   }
@@ -401,7 +401,7 @@ export class AfipComponent implements OnInit {
         var base64data = reader.result;
         try {
             const result = await Filesystem.writeFile({
-                path: 'invoices_afip_' + `${year}${month}${day}` + '.csv',
+                path: 'invoices_arca_' + `${year}${month}${day}` + '.csv',
                 data: <string>base64data,
                 directory: Directory.Data,
                 recursive: true
@@ -508,7 +508,7 @@ export class AfipComponent implements OnInit {
         var base64data = reader.result;
         try {
             const result = await Filesystem.writeFile({
-                path: 'invoices_afip_' + `${year}${month}${day}` + '.csv',
+                path: 'invoices_arca_' + `${year}${month}${day}` + '.csv',
                 data: <string>base64data,
                 directory: Directory.Data,
                 recursive: true
