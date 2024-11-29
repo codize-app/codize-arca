@@ -44,6 +44,9 @@ export class AfipComponent implements OnInit {
   expandedElement: InvoiceElement | null | undefined;
   @ViewChild(MatTable) table: MatTable<InvoiceElement> | undefined;
 
+  afipURL = 'afip.gob.ar';
+  arcaURL = 'arca.gob.ar';
+
   globals = Globals;
   loading = false;
   qrs: any = [];
@@ -112,22 +115,24 @@ export class AfipComponent implements OnInit {
   }
 
   async test() {
-    // FA-C
+    // FA-C OLD AFIP
     const urlText1 = "https://www.afip.gob.ar/fe/qr/?p=eyJ2ZXIiOjEsImZlY2hhIjoiMjAyMi0wMS0yNSIsImN1aXQiOjIwMzY3MzYyNDczLCJwdG9WdGEiOjIsInRpcG9DbXAiOjExLCJucm9DbXAiOjg4LCJpbXBvcnRlIjoyMDAwLCJtb25lZGEiOiJQRVMiLCJjdHoiOjEsInRpcG9Eb2NSZWMiOjgwLCJucm9Eb2NSZWMiOjMwNzE2NzQzMjk5LCJ0aXBvQ29kQXV0IjoiRSIsImNvZEF1dCI6NzIwNDMzMjQ5NjcwOTl9";
-    // FA-A
+    // FA-A OLD AFIP
     const urlText2 = "https://www.afip.gob.ar/fe/qr/?p=eyJ2ZXIiOiAxLCAiZmVjaGEiOiAiMjAyMi0wMi0wMSIsICJjdWl0IjogMzA3MTY3MTg1MjksICJwdG9WdGEiOiAyLCAidGlwb0NtcCI6IDEsICJucm9DbXAiOiAxNjcsICJpbXBvcnRlIjogMTgxNTAuMCwgIm1vbmVkYSI6ICJQRVMiLCAiY3R6IjogMS4wLCAidGlwb0NvZEF1dCI6ICJFIiwgImNvZEF1dCI6IDcyMDU5MDA0NTQ5NTc1LCAibnJvRG9jUmVjIjogMjAzNzAzODYwNTcsICJ0aXBvRG9jUmVjIjogODB9";
-    // FA-B
+    // FA-B OLD AFIP
     const urlText3 = "https://www.afip.gob.ar/fe/qr/?p=eyJjb2RBdXQiOjcyMDQ2MTkwMDUyNDc3LCJjdHoiOjEsImN1aXQiOjMwNzEwMTE0MTc2LCJmZWNoYSI6IjIwMjItMDEtMjMiLCJpbXBvcnRlIjo2Mzk4LjAwLCJtb25lZGEiOiJQRVMiLCJucm9DbXAiOjEwMDk3OTksIm5yb0RvY1JlYyI6MCwicHRvVnRhIjozMSwidGlwb0NtcCI6NiwidGlwb0NvZEF1dCI6IkUiLCJ0aXBvRG9jUmVjIjo5NiwidmVyIjoxfQ=="
   
-    // FA QR Odoo
+    // FA QR Odoo OLD AFIP
     const urlText4 = "https://serviciosweb.afip.gob.ar/genericos/comprobantes/cae.aspx?p=eyJ2ZXIiOiAxLCAiZmVjaGEiOiAiMjAyNC0wMy0wMSIsICJjdWl0IjogMzA3MTU1MDg0NjYsICJwdG9WdGEiOiAzLCAidGlwb0NtcCI6IDYsICJucm9DbXAiOiA0NDY5LCAiaW1wb3J0ZSI6IDk4NjAuMCwgIm1vbmVkYSI6ICJQRVMiLCAiY3R6IjogMS4wLCAidGlwb0NvZEF1dCI6ICJFIiwgImNvZEF1dCI6IDc0MDk2MDQ1NDM0MTM2LCAidGlwb0RvY1JlYyI6IDk2LCAibnJvRG9jUmVjIjogMjUxNjI5Nzh9";
 
+    // FA ARCA
+    const urlARCA = "https://servicioscf.afip.gob.ar/publico/comprobantes/cae.aspx?p=eyJ2ZXIiOjEsImZlY2hhIjoiMjAyNC0xMS0xNCIsImN1aXQiOjIwMzY3MzYyNDczLCJwdG9WdGEiOjQsInRpcG9DbXAiOjE5LCJucm9DbXAiOjE2LCJpbXBvcnRlIjoxODQuMTMsIm1vbmVkYSI6IkRPTCIsImN0eiI6OTk5LCJ0aXBvRG9jUmVjIjo4MCwibnJvRG9jUmVjIjo1NTAwMDAwMjA1MywidGlwb0NvZEF1dCI6IkUiLCJjb2RBdXQiOjc0NDYzMjExOTc5NDcwfQ==";
     // Massive Import
     /*this.qrs.push(urlText1);
     this.qrs.push(urlText2);
     this.qrs.push(urlText3);
     this.processQRMassive();*/
-    this.processQR(urlText4);
+    this.processQR(urlARCA);
   }
 
   removeInvoices(): void {
@@ -149,7 +154,16 @@ export class AfipComponent implements OnInit {
       })
     };
 
-    if (url.host === 'www.afip.gob.ar' || url.host === 'afip.gob.ar' || url.host === 'serviciosweb.afip.gob.ar') {
+    if (
+      url.host == 'servicioscf.' + this.arcaURL ||
+      url.host == 'servicioscf.' + this.afipURL ||
+      url.host === 'www.' + this.arcaURL ||
+      url.host === 'www.' + this.afipURL ||
+      url.host === this.afipURL ||
+      url.host === this.arcaURL ||
+      url.host === 'serviciosweb.' + this.afipURL ||
+      url.host === 'serviciosweb.' + this.arcaURL
+    ) {
       if (this.invoices.find(x => x.cae === obj.codAut) !== undefined) {
         this.openDialog('¡Factura ya escaneada!');
         this.loading = false;
@@ -201,7 +215,7 @@ export class AfipComponent implements OnInit {
         });*/
       }
     } else {
-      this.openDialog('El QR escaneado no es de AFIP');
+      this.openDialog('El QR escaneado no es de ARCA');
       this.loading = false;
     }
   }
